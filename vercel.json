@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/process.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/process",
+      "methods": ["POST", "OPTIONS"],
+      "dest": "/api/process.js"
+    }
+  ]
+}

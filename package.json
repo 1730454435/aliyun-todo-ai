@@ -1,0 +1,12 @@
+{
+  "name": "aliyun-todo-ai",
+  "version": "1.0.0", 
+  "description": "基于阿里云通义千问的待办事项AI处理器",
+  "main": "api/process.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/node": "^1.15.0"
+  }
+}
