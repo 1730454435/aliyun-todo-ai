@@ -1,37 +1,37 @@
 // 文件名：api/process.js
 // 功能：接收图片，调用阿里云通义千问API识别内容，返回结构化数据
 
-export default async function handler(req, res) {
+export   出口 导出默认async函数处理程序（req, res）   res) {default   默认的 async   异步 function   函数 handler(req   要求的, res) {
   // 设置跨域访问，让iPhone快捷指令可以调用
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader(‘Access   的访问-Control   控制-Allow   允许-Origin’,‘*’);res.setHeader('Access-Control-Allow-Origin'“Access   “访问-Control   控制-Allow   允许-Origin”, '*');
+  res.setHeader('Access-Control-Allow-Methods'“Access   “访问-Control   控制-Allow   允许-Methods”   方法”, 'POST， OPTIONS'   “,选择”)；res.setHeader('Access-Control-Allow-Methods'“Access   “访问-Control   控制-Allow   允许-Methods”   方法”, 'POST, OPTIONS'   “,选择”);
+  res.setHeader(“Access   “访问-Control   控制-Allow   允许-Headers”、“内容类型”);res.setHeader('Access-Control-Allow-Headers'“Access   “访问-Control   控制-Allow   允许-Headers”, 'Content-Type'   “内容类型”);
 
   // 处理预检请求
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+  if   如果 (req   要求的.method   方法 === 'OPTIONS'   “选项”) {
+    return   返回 res.status   状态(200).end   结束();
   }
 
   // 只允许POST请求
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: '只支持POST请求' });
+  if   如果 (req   要求的.method   方法 !== 'POST'   “职位”) {
+    return   返回 res.status   状态(405).json({ error   错误: '只支持POST请求' });
   }
 
-  try {
-    console.log('开始处理图片...');
-    const { image } = req.body;
+     尝试{try   试一试 {
+    console   控制台.log('开始处理图片...');
+    Const    常量{image   图像} = req   要求的.body；const   身体,常量 { image   图像 } = req   要求的.body   身体;
 
     // 检查是否有图片数据
-    if (!image) {
-      console.error('没有收到图片数据');
-      return res.status(400).json({ error: '没有收到图片数据' });
+    if   如果 (!image   图像) {
+      console   控制台.error   错误('没有收到图片数据');
+      return   返回 res.status   状态(400).json({ error   错误: '没有收到图片数据' });
     }
 
     // 获取环境变量中的API密钥
-    const apiKey = process.env.ALIYUN_API_KEY;
-    if (!apiKey) {
-      console.error('API密钥未配置');
-      return res.status(500).json({ error: '服务器配置错误' });
+    const   常量 apiKey = process   过程.env.ALIYUN_API_KEY；const   ALIYUN_API_KEY;常量 apiKey = process   过程.env.ALIYUN_API_KEY;
+    if   如果 (!apiKey) {
+      console   控制台.error   错误('API密钥未配置');
+      return   返回 res.status   状态(500).json({ error   错误: '服务器配置错误' });
     }
 
     console.log('准备调用阿里云API...');
@@ -39,15 +39,15 @@ export default async function handler(req, res) {
     // 调用阿里云通义千问视觉模型
     // 注意：这里的URL和参数需要根据阿里云最新文档调整
     const dashscopeResponse = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
+      method: 'POST',   方法:“文章”,
+      headers: {   标题:{
+        'Authorization': `Bearer ${apiKey}`,‘Authorization’：   “授权”: ‘来人${apiKey} ’，
+        'Content-Type': 'application/json',“内容类型”:“application   “应用程序 / json”,
         'X-DashScope-Async': 'enable'
       },
-      body: JSON.stringify({
-        "model": "qwen-vl-plus",
-        "input": {
+      body: JSON.stringify({   身体:JSON.stringify ({
+        "model": "Qwen3-vl-plus",   “模型”:“qwen-vl-plus”   加上“,
+        "input": {   “输入”:{
           "messages": [
             {
               "role": "user",
@@ -144,4 +144,5 @@ export default async function handler(req, res) {
       error: '处理失败: ' + error.message 
     });
   }
+
 }
